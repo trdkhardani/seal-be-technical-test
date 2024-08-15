@@ -17,11 +17,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = ['user_id'];
+    protected $primaryKey = 'user_id';
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    // ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,4 +44,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function posisi()
+    {
+        return $this->belongsTo(Position::class, 'position_id');
+    }
+
+    public function task()
+    {
+        return $this->hasOne(Task::class, 'user_id');
+    }
 }

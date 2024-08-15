@@ -12,13 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('user_id')->primary();
+            $table->uuid('position_id')->nullable();
             $table->string('name');
+            $table->string('username')->unique();
+            $table->string('user_photo');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('user_role', ['Leader', 'Member'])->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            // Define FK
+            $table->foreign('position_id')->references('position_id')->on('positions')->onDelete('cascade');
         });
     }
 
