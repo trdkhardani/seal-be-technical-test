@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProjectManager\AssignController;
 use App\Http\Controllers\Api\RegisterController;
+use App\Http\Controllers\Api\User\InfoController;
+use App\Http\Controllers\Api\User\UpdateController;
 use App\Http\Middleware\IsProjectManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +37,6 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::patch('/assign-position/{user_id}', 'assignPosition');
         });
     });
+    Route::get('/user-info', [InfoController::class, 'index']);
+    Route::put('/edit-user', [UpdateController::class, 'updateUser']);
 });
