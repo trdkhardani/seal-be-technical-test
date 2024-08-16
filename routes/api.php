@@ -42,8 +42,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/add-project', [CreateProjectController::class, 'createProject']);
         Route::put('/edit-project/{project_id}', [UpdateProjectController::class, 'updateProject']);
     });
+
     Route::get('/user-info', [InfoController::class, 'index']);
     Route::put('/edit-user', [UpdateController::class, 'updateUser']);
 
-    Route::get('/projects', [ProjectListController::class, 'index']);
+    Route::controller(ProjectListController::class)->group(function(){
+        Route::get('/projects', 'index');
+        Route::get('/project/{project_id}', 'projectDetail');
+    });
 });
