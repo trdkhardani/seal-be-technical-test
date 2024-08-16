@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Project\ProjectListController;
 use App\Http\Controllers\Api\ProjectManager\AssignController;
 use App\Http\Controllers\Api\ProjectManager\CreateProjectController;
 use App\Http\Controllers\Api\ProjectManager\UpdateProjectController;
@@ -43,4 +44,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::get('/user-info', [InfoController::class, 'index']);
     Route::put('/edit-user', [UpdateController::class, 'updateUser']);
+
+    Route::get('/projects', [ProjectListController::class, 'index']);
 });
