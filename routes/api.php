@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Project\ProjectListController;
 use App\Http\Controllers\Api\ProjectManager\AssignController;
 use App\Http\Controllers\Api\ProjectManager\CreateProjectController;
+use App\Http\Controllers\Api\ProjectManager\Task\CreateTaskController;
 use App\Http\Controllers\Api\ProjectManager\UpdateProjectController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\User\InfoController;
@@ -41,6 +42,8 @@ Route::middleware('auth:sanctum')->group(function () {
         });
         Route::post('/add-project', [CreateProjectController::class, 'createProject']);
         Route::put('/edit-project/{project_id}', [UpdateProjectController::class, 'updateProject']);
+
+        Route::post('/add-task', [CreateTaskController::class, 'createTask']);
     });
 
     Route::get('/user-info', [InfoController::class, 'index']);

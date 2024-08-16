@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->uuid('task_id')->primary();
-            $table->uuid('user_id');
+            $table->uuid('user_id')->nullable();
             $table->uuid('project_id');
             $table->string('task_title');
             $table->string('task_description');
             $table->dateTime('task_due_date');
-            $table->enum('task_status', ['finished', 'in progress', 'assigned']);
-            $table->string('task_note');
+            $table->enum('task_status', ['finished', 'in progress', 'assigned', 'created']);
+            $table->string('task_note')->nullable();
             $table->timestamps();
 
             // Define FK
