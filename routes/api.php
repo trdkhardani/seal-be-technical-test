@@ -63,6 +63,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(TaskListController::class)->group(function () {
         Route::get('/tasks', 'index');
-        Route::get('/project/{project_id}', 'projectDetail');
+        Route::get('user-tasks', 'userTasks');
+        Route::get('/task/{task_id}', 'taskDetail');
     });
 });
