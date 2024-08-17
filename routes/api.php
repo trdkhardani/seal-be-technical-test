@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Leader\AssignTaskController;
 use App\Http\Controllers\Api\Project\ProjectListController;
 use App\Http\Controllers\Api\ProjectManager\AssignController;
 use App\Http\Controllers\Api\ProjectManager\CreateProjectController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Api\ProjectManager\UpdateProjectController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\User\InfoController;
 use App\Http\Controllers\Api\User\UpdateController;
+use App\Http\Middleware\IsLeader;
 use App\Http\Middleware\IsProjectManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,17 +41,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware(IsProjectManager::class)->group(function () {
         Route::controller(AssignController::class)->group(function () {
             Route::patch('/assign-position/{user_id}', 'assignPosition');
+            Route::patch('/assign-task/{task_id}', 'assignTask');
         });
         Route::post('/add-project', [CreateProjectController::class, 'createProject']);
         Route::put('/edit-project/{project_id}', [UpdateProjectController::class, 'updateProject']);
+    });
 
+    Route::middleware(IsLeader::class)->group(function () {
         Route::post('/add-task', [CreateTaskController::class, 'createTask']);
+        Route::patch('/assign-task-leader/{task_id}', [AssignTaskController::class, 'assignTask']);
     });
 
     Route::get('/user-info', [InfoController::class, 'index']);
     Route::put('/edit-user', [UpdateController::class, 'updateUser']);
 
-    Route::controller(ProjectListController::class)->group(function(){
+    Route::controller(ProjectListController::class)->group(function () {
         Route::get('/projects', 'index');
         Route::get('/project/{project_id}', 'projectDetail');
     });
