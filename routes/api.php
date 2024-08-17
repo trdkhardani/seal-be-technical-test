@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\ProjectManager\Task\UpdateTaskController;
 use App\Http\Controllers\Api\ProjectManager\UpdateProjectController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\Task\TaskListController;
+use App\Http\Controllers\Api\User\DeleteController;
 use App\Http\Controllers\Api\User\InfoController;
 use App\Http\Controllers\Api\User\UpdateController;
 use App\Http\Middleware\IsLeader;
@@ -62,6 +63,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/user-info', [InfoController::class, 'index']);
     Route::put('/edit-user', [UpdateController::class, 'updateUser']);
+    Route::delete('/delete-user', [DeleteController::class, 'deleteUser']);
 
     Route::controller(ProjectListController::class)->group(function () {
         Route::get('/projects', 'index');
