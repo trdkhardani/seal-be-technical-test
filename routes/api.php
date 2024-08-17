@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\ProjectManager\CreateProjectController;
 use App\Http\Controllers\Api\ProjectManager\Task\CreateTaskController;
 use App\Http\Controllers\Api\ProjectManager\UpdateProjectController;
 use App\Http\Controllers\Api\RegisterController;
+use App\Http\Controllers\Api\Task\TaskListController;
 use App\Http\Controllers\Api\User\InfoController;
 use App\Http\Controllers\Api\User\UpdateController;
 use App\Http\Middleware\IsLeader;
@@ -57,6 +58,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(ProjectListController::class)->group(function () {
         Route::get('/projects', 'index');
+        Route::get('/project/{project_id}', 'projectDetail');
+    });
+
+    Route::controller(TaskListController::class)->group(function () {
+        Route::get('/tasks', 'index');
         Route::get('/project/{project_id}', 'projectDetail');
     });
 });
