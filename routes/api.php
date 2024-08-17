@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Leader\AssignTaskController;
 use App\Http\Controllers\Api\Project\ProjectListController;
 use App\Http\Controllers\Api\ProjectManager\AssignController;
 use App\Http\Controllers\Api\ProjectManager\CreateProjectController;
+use App\Http\Controllers\Api\ProjectManager\DeleteProjectController;
 use App\Http\Controllers\Api\ProjectManager\Task\CreateTaskController;
 use App\Http\Controllers\Api\ProjectManager\Task\DeleteTaskController;
 use App\Http\Controllers\Api\ProjectManager\Task\UpdateTaskController;
@@ -48,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
         });
         Route::post('/add-project', [CreateProjectController::class, 'createProject']);
         Route::put('/edit-project/{project_id}', [UpdateProjectController::class, 'updateProject']);
+        Route::delete('/delete-project/{project_id}', [DeleteProjectController::class, 'deleteProject']);
 
         Route::put('/edit-task/{task_id}', [UpdateTaskController::class, 'updateTask']);
         Route::delete('/delete-task/{task_id}', [DeleteTaskController::class, 'deleteTask']);
