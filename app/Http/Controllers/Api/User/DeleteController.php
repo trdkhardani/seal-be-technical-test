@@ -17,12 +17,12 @@ class DeleteController extends Controller
         $user = User::find($userId);
 
         $unfinishedTask = Task::where('user_id', $userId)
-        ->whereIn('task_status', ['assigned', 'in progress'])->get(); // get user's unfinished tasks
+        ->whereIn('task_status', ['assigned', 'in progress'])->get()->count(); // get user's unfinished tasks
 
-        if ($unfinishedTask) { // if user have unfinished task
+        if ($unfinishedTask > 0) { // if user have unfinished task
             return response()->json([
                 'status' => 'error',
-                'message' => 'You have ' . $unfinishedTask->count() . ' unfinished task(s)'
+                'message' => 'You have ' . $unfinishedTask . ' unfinished task(s)'
             ], 409);
         }
 
